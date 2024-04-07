@@ -1,9 +1,9 @@
-from cpu import CPU
+from emulator import Emulator
 
 def main():
     print("Hello Chip8!")
-    cpu = CPU()
-    cpu.dump_cpu()
+    emulator = Emulator()
+    emulator.run()
 
 if __name__ == "__main__":
     main()

@@ -24,11 +24,16 @@ class CPU:
         self.operand = self.mem[self.registers['pc']]
         self.operand << 8
         self.operand += self.mem[self.registers['pc'] + 1]
-        self.pc += 2
+        self.registers['pc'] += 2
         
         #Decode
 
         #Execute
+
+    def load_rom(self, rom):
+        data = open(rom, 'rb').read()
+        for index, val in enumerate(data):
+            self.mem[0x200 + index] = val
 
     def dump_cpu(self):
         data = f"""
@@ -36,9 +41,6 @@ class CPU:
         Registers: {self.registers}
         Timers: {self.timers}
         Stack: {self.stack}
-        Memory: {self.mem}
+        Memory: {self.mem.hex()}
         """
         print(data)
-
-    
-
