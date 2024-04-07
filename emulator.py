@@ -10,6 +10,7 @@ class Emulator:
 
     def run(self):
         self.cpu.load_rom('IBM Logo.ch8')
+        self.cpu.load_font()
         self.cpu.dump_cpu()
         pygame.init()
         running = True
