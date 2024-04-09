@@ -30,17 +30,28 @@ class CPU:
         }
         self.registers = {
             'v': [],
-            'pc': 0,
+            'pc': 0x200,
             'sp': 0,
             'index': 0
         }
 
     def cycle(self):
         #Fetch
+        print('pc: ' + hex(self.registers['pc']))
         self.operand = self.mem[self.registers['pc']]
-        self.operand << 8
+        self.operand <<= 8
         self.operand += self.mem[self.registers['pc'] + 1]
         self.registers['pc'] += 2
+        print('opcode: ' + hex(self.operand))
+
+        #split the opcode into important parts
+        op = (self.operand & 0xF000) >> 12
+        x = (self.operand & 0x0F00) >> 8
+        y = (self.operand & 0x00F0) >> 4
+        n = (self.operand & 0x000F)
+        nn = (self.operand & 0x00FF)
+        nnn = (self.operand & 0x0FFF)
+        print('op:' + hex(op) + ' x:' + hex(x) + ' y:' + hex(y) + ' n:' + hex(n) + ' nn:' + hex(nn) + ' nnn:' + hex(nnn))
         
         #Decode
 
@@ -53,7 +64,7 @@ class CPU:
     
     def load_font(self):
         for index, val in enumerate(FONT):
-            self.mem[0x050 + index] = val
+            self.mem[0x50 + index] = val
 
     def dump_cpu(self):
         data = f"""
