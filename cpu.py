@@ -75,3 +75,30 @@ class CPU:
         Memory: {self.mem.hex()}
         """
         print(data)
+
+    
+    #INSTRUCTIONS
+    
+    #00E0 - CLS
+    def op_00e0(self):
+        return
+
+    #1nnn - JP addr
+    def op_1nnn(self, nnn):
+        self.pc = nnn
+
+    #6xkk - LD Vx, byte
+    def op_6xkk(self, x, kk):
+        self.registers['v'][x] = kk
+
+    #7xkk - ADD Vx, byte
+    def op_7xkk(self, x, kk):
+        self.registers['v'][x] += kk
+
+    #Annn - LD I, addr
+    def op_annn(self, nnn):
+        self.registers['index'] = nnn
+
+    #Dxyn - DRW Vx, Vy, nibble
+    def op_dxyn(self, x, y, nib):
+        return
