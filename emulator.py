@@ -1,6 +1,7 @@
 import pygame
 
 from cpu import CPU
+from display import Display
 from pygame import time
 from pygame import event
 
@@ -11,10 +12,12 @@ SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
 class Emulator:
     def __init__(self):
         self.cpu = CPU()
+        self.display = Display()
 
     def run(self):
         self.cpu.load_rom('IBM Logo.ch8')
         self.cpu.load_font()
+        self.display.dump_screen_bits();
         # self.cpu.dump_cpu()
         pygame.init()
         running = True
